@@ -21,11 +21,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchClients">
+        <activity android:name=".SearchClients" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".ClientList"
+            android:label="@string/title_activity_client_list"
+            android:parentActivityName=".SearchClients"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.truytimkhachno.ttkn.SearchClients" />
         </activity>
-
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".Loader"></activity>
     </application>
 
 </manifest>

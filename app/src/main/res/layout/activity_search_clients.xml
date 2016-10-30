@@ -11,12 +11,16 @@
         android:id="@+id/searchWrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
         <LinearLayout
             android:id="@+id/nameBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -31,13 +35,135 @@
                 android:id="@+id/txtName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginStart="18dp"
                 android:layout_weight="4"
                 android:ems="10"
                 android:hint="@string/txt_client_name_search"
                 android:inputType="textPersonName"
+                android:textColor="@android:color/white"
+                android:background="@color/backgroundInput"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/identityBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblIdentity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/lbl_identity"
                 android:textColor="@android:color/holo_red_dark" />
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:id="@+id/spnrIdentityType"
+                android:background="@color/backgroundInput"
+                android:textColor="#fff"/>
+
+            <EditText
+                android:id="@+id/txtIdentity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ems="10"
+                android:hint="@string/txt_client_identity_search"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/white"
+                android:background="@color/backgroundInput" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/lbl_address"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <EditText
+                android:id="@+id/txtAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:ems="10"
+                android:hint="@string/txt_client_address_search"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/white"
+                android:background="@color/backgroundInput" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/phoneBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/lbl_phone"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <EditText
+                android:id="@+id/txtPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:layout_weight="4"
+                android:ems="10"
+                android:hint="@string/txt_client_phone_search"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/white"
+                android:background="@color/backgroundInput" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/noteBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/lbl_note"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <EditText
+                android:id="@+id/txtNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:layout_weight="4"
+                android:ems="10"
+                android:hint="@string/txt_client_note_search"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/white"
+                android:background="@color/backgroundInput" />
 
         </LinearLayout>
 
@@ -45,6 +171,7 @@
             android:id="@+id/btnSearchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:orientation="horizontal">
 
             <Button
@@ -63,16 +190,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchWrapper">
+        android:layout_below="@+id/searchWrapper"
+        android:id="@+id/linearLayout">
 
-        <TextView
-            android:id="@+id/txtResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="...................."
-            android:textColor="@android:color/holo_red_dark" />
     </LinearLayout>
-
 
 </RelativeLayout>

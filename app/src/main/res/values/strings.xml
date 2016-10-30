@@ -2,7 +2,25 @@
     <string name="app_name">TTKN</string>
 
     <string name="txt_client_name_search">Tên khách</string>
-    <string name="btn_search">Tìm kiếm</string>
+    <string name="txt_client_address_search">Địa chỉ khách</string>
+    <string name="txt_client_identity_search">Mã số</string>
+    <string name="txt_client_phone_search">Số điện thoại</string>
+    <string name="txt_client_note_search">Ghi chú</string>
     <string name="lbl_name">Tên: </string>
+    <string name="lbl_identity">Giấy tờ: </string>
+    <string name="lbl_address">Địa chỉ: </string>
+    <string name="lbl_phone">Điện thoại: </string>
+    <string name="lbl_note">Ghi chú: </string>
+    <string name="btn_search">Tìm kiếm</string>
     <string name="title_activity_splash_launcher">SplashLauncher</string>
+
+    <string-array name="spnr_identity_type">
+        <item>Chứng minh thư</item>
+        <item>Hộ khẩu</item>
+        <item>Bằng lái</item>
+        <item>Sổ đỏ</item>
+    </string-array>
+    <string name="title_activity_client_list">Kết quả</string>
+    <string name="no_result">Không có kết quả nào được tìm thấy!</string>
+    <string name="action_settings">Settings</string>
 </resources>
