@@ -19,9 +19,8 @@ import entities.Client;
  */
 
 public class ImageLoader extends AsyncTask<Client, Void, Bitmap> {
-
-    private View view;
     private String url;
+    private View view;
 
     public ImageLoader(View view) {
         this.view = view;
@@ -46,7 +45,6 @@ public class ImageLoader extends AsyncTask<Client, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap result) {
-        System.out.println("=== url: " + url + " = result: " + result);
         if (result != null) {
             ((ImageView)view).setImageBitmap(result);
         }
