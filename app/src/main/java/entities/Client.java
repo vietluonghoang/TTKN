@@ -94,4 +94,14 @@ public class Client {
     public void setImages(ArrayList<Image> images) {
         this.images = images;
     }
+
+    @Override
+    public String toString() {
+        String nm = "";
+        for(Name n:getNames()){
+            nm+=n.getName()+", ";
+        }
+
+        return getId() + " - " + nm;
+    }
 }

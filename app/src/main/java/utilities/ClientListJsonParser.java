@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import entities.Client;
 import entities.clientdetails.Address;
@@ -13,6 +14,8 @@ import entities.clientdetails.Image;
 import entities.clientdetails.Name;
 import entities.clientdetails.Note;
 import entities.clientdetails.Phone;
+
+import static android.R.attr.data;
 
 /**
  * Created by VietLH on 10/30/2016.
@@ -34,26 +37,56 @@ public class ClientListJsonParser {
         clients = new ArrayList<Client>();
     }
 
-    public ArrayList<Client> getClients() {
+    public ArrayList<Client> getClients() throws JSONException {
+        if (clients.size() < 1) {
+            parser();
+        }
         return clients;
     }
 
-    public String getCode() {
+    public String getCode() throws JSONException {
+        if (code.length() < 1) {
+            parser();
+        }
         return code;
     }
 
-    public String getMessage() {
+    public String getMessage() throws JSONException {
+        if (message.length() < 1) {
+            parser();
+        }
         return message;
     }
 
     private void parser() throws JSONException {
         code = jsonObj.getString("code");
         message = jsonObj.getString("message");
-        JSONArray data = jsonObj.getJSONArray("data");
-        for (int i = 0; i < data.length(); i++) {
-            String id = data.getJSONObject(i).getString("khach_id");
-            JSONArray namesArr = data.getJSONObject(i).getJSONArray("name");
-            ArrayList<Name> names = new ArrayList<Name>();
+        Object obj = jsonObj.get("data");
+        if (obj.getClass().getName().contains("JSONArray")) {
+            JSONArray data = jsonObj.getJSONArray("data");
+            for (int i = 0; i < data.length(); i++) {
+                initClientList(data.getJSONObject(i));
+            }
+        } else {
+            if (obj.getClass().getName().contains("JSONObject")) {
+                Iterator<String> iter = jsonObj.getJSONObject("data").keys();
+                while (iter.hasNext()) {
+                    String key = iter.next();
+                    initClientList(jsonObj.getJSONObject("data").getJSONObject(key));
+                }
+            } else {
+                throw new JSONException("Not a valid JSON object.");
+            }
+        }
+
+
+    }
+
+    private void initClientList(JSONObject obj) throws JSONException {
+        String id = obj.getString("khach_id");
+        ArrayList<Name> names = new ArrayList<Name>();
+        if (!obj.isNull("name")) {
+            JSONArray namesArr = obj.getJSONArray("name");
             if (namesArr.length() > 0) {
                 for (int n = 0; n < namesArr.length(); n++) {
                     names.add(new Name(namesArr.getJSONObject(n).getString("name_id")
@@ -61,9 +94,11 @@ public class ClientListJsonParser {
                             , namesArr.getJSONObject(n).getString("chu_id")));
                 }
             }
-            JSONArray identityArray = data.getJSONObject(i).getJSONArray("giay_to");
-            ArrayList<IdentityCard> identities = new ArrayList<IdentityCard>();
-            if (namesArr.length() > 0) {
+        }
+        ArrayList<IdentityCard> identities = new ArrayList<IdentityCard>();
+        if (!obj.isNull("giay_to")) {
+            JSONArray identityArray = obj.getJSONArray("giay_to");
+            if (identityArray.length() > 0) {
                 for (int iden = 0; iden < identityArray.length(); iden++) {
                     identities.add(new IdentityCard(identityArray.getJSONObject(iden).getString("id")
                             , identityArray.getJSONObject(iden).getString("loai")
@@ -71,8 +106,10 @@ public class ClientListJsonParser {
                             , identityArray.getJSONObject(iden).getString("chu_id")));
                 }
             }
-            JSONArray addressArray = data.getJSONObject(i).getJSONArray("dia_chi");
-            ArrayList<Address> addresses = new ArrayList<Address>();
+        }
+        ArrayList<Address> addresses = new ArrayList<Address>();
+        if (!obj.isNull("dia_chi")) {
+            JSONArray addressArray = obj.getJSONArray("dia_chi");
             if (addressArray.length() > 0) {
                 for (int addr = 0; addr < addressArray.length(); addr++) {
                     addresses.add(new Address(addressArray.getJSONObject(addr).getString("diachi_id")
@@ -80,8 +117,10 @@ public class ClientListJsonParser {
                             , addressArray.getJSONObject(addr).getString("chu_id")));
                 }
             }
-            JSONArray noteArray = data.getJSONObject(i).getJSONArray("ghichu");
-            ArrayList<Note> notes = new ArrayList<Note>();
+        }
+        ArrayList<Note> notes = new ArrayList<Note>();
+        if (!obj.isNull("ghichu")) {
+            JSONArray noteArray = obj.getJSONArray("ghichu");
             if (noteArray.length() > 0) {
                 for (int nt = 0; nt < noteArray.length(); nt++) {
                     notes.add(new Note(noteArray.getJSONObject(nt).getString("ghichu_id")
@@ -89,8 +128,10 @@ public class ClientListJsonParser {
                             , noteArray.getJSONObject(nt).getString("chu_id")));
                 }
             }
-            JSONArray phoneArray = data.getJSONObject(i).getJSONArray("phone");
-            ArrayList<Phone> phones = new ArrayList<Phone>();
+        }
+        ArrayList<Phone> phones = new ArrayList<Phone>();
+        if (!obj.isNull("phone")) {
+            JSONArray phoneArray = obj.getJSONArray("phone");
             if (phoneArray.length() > 0) {
                 for (int p = 0; p < phoneArray.length(); p++) {
                     phones.add(new Phone(phoneArray.getJSONObject(p).getString("phone_id")
@@ -98,8 +139,10 @@ public class ClientListJsonParser {
                             , phoneArray.getJSONObject(p).getString("chu_id")));
                 }
             }
-            JSONArray imageArray = data.getJSONObject(i).getJSONArray("image");
-            ArrayList<Image> images = new ArrayList<Image>();
+        }
+        ArrayList<Image> images = new ArrayList<Image>();
+        if (!obj.isNull("image")) {
+            JSONArray imageArray = obj.getJSONArray("image");
             if (imageArray.length() > 0) {
                 for (int img = 0; img < imageArray.length(); img++) {
                     images.add(new Image(imageArray.getJSONObject(img).getString("id")
@@ -107,8 +150,7 @@ public class ClientListJsonParser {
                             , imageArray.getJSONObject(img).getString("chu_id")));
                 }
             }
-            clients.add(new Client(id, names, identities, addresses, phones, notes, images));
         }
-
+        clients.add(new Client(id, names, identities, addresses, phones, notes, images));
     }
 }
