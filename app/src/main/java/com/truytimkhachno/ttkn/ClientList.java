@@ -36,9 +36,14 @@ public class ClientList extends AppCompatActivity {
         setContentView(R.layout.activity_client_list);
 
         String res = getIntent().getStringExtra(Loader.RESPONSE);
+        clientTabs = new ArrayList<ClientTab>();
         try {
-            ClientListJsonParser parser = new ClientListJsonParser(res);
-            createClientUIView(parser.getClients());
+            if (res != null) {
+                ClientListJsonParser parser = new ClientListJsonParser(res);
+                createClientUIView(parser.getClients());
+            }else {
+                ((LinearLayout)findViewById(R.id.noResult)).setVisibility(LinearLayout.VISIBLE);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -64,7 +69,7 @@ public class ClientList extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         try {
             updateAva();
@@ -74,18 +79,18 @@ public class ClientList extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     private void createClientUIView(ArrayList<Client> clients) throws IOException, ExecutionException, InterruptedException {
-        clientTabs=new ArrayList<ClientTab>();
         for (Client c : clients) {
-            clientTabs.add(new ClientTab(c,this));
+            clientTabs.add(new ClientTab(c, this));
         }
-        for(ClientTab tab:clientTabs){
+        for (ClientTab tab : clientTabs) {
             ((LinearLayout) findViewById(R.id.contentWrapper)).addView(tab.getRoot());
         }
     }
 
     private void updateAva() throws ExecutionException, InterruptedException {
-        for(ClientTab tab:clientTabs){
+        for (ClientTab tab : clientTabs) {
             tab.updateAva();
         }
     }
