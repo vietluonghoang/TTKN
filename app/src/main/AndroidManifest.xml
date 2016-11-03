@@ -32,7 +32,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.truytimkhachno.ttkn.SearchClients" />
         </activity>
-        <activity android:name=".Loader"></activity>
+        <activity android:name=".Loader" />
+        <activity android:name=".ClientDetails"></activity>
     </application>
 
 </manifest>

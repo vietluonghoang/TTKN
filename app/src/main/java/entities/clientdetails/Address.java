@@ -1,10 +1,12 @@
 package entities.clientdetails;
 
+import java.io.Serializable;
+
 /**
  * Created by Rypon on 10/28/2016.
  */
 
-public class Address {
+public class Address implements Serializable {
     private String id;
     private String address;
     private String ownerID;

@@ -1,10 +1,12 @@
 package entities.clientdetails;
 
+import java.io.Serializable;
+
 /**
  * Created by Rypon on 10/27/2016.
  */
 
-public class IdentityCard {
+public class IdentityCard implements Serializable {
     private String id;
     private String type;
     private String number;

@@ -1,10 +1,12 @@
 package entities.clientdetails;
 
+import java.io.Serializable;
+
 /**
  * Created by Rypon on 10/28/2016.
  */
 
-public class Image {
+public class Image implements Serializable {
 
     private String id;
     private String path;

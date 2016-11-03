@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loaderLoadingOverlay"
-        android:background="@mipmap/ic_launcher"
+        android:background="@drawable/loading"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

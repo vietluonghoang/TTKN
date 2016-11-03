@@ -32,9 +32,11 @@ public class ImageLoader extends AsyncTask<Client, Void, Bitmap> {
         if (clients[0].getImages().size() > 0) {
             this.url = clients[0].getImages().get(0).getPath();
             try {
-                bm = BitmapFactory.decodeStream(new URL(url).openConnection().getInputStream());
+                if (!isCancelled()) {
+                    bm = BitmapFactory.decodeStream(new URL(url).openConnection().getInputStream());
+                }
             } catch (FileNotFoundException e) {
-                System.out.println("File not found: " + url);
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -45,8 +47,8 @@ public class ImageLoader extends AsyncTask<Client, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap result) {
-        if (result != null) {
-            ((ImageView)view).setImageBitmap(result);
+        if (result != null && !isCancelled()) {
+            ((ImageView) view).setImageBitmap(result);
         }
     }
 

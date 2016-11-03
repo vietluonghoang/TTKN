@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import entities.clientdetails.Address;
@@ -13,7 +14,7 @@ import entities.clientdetails.Phone;
  * Created by Rypon on 10/27/2016.
  */
 
-public class Client {
+public class Client implements Serializable {
     private String id;
     private ArrayList<Name> names;
     private ArrayList<IdentityCard> identities;

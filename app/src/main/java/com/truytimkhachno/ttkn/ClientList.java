@@ -1,8 +1,10 @@
 package com.truytimkhachno.ttkn;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +28,12 @@ import entities.Client;
 import utilities.ClientListJsonParser;
 import utilities.ClientTab;
 import utilities.ImageLoader;
+import utilities.Transporter;
 
 public class ClientList extends AppCompatActivity {
     private ArrayList<ClientTab> clientTabs;
+    private ArrayList<Client> clients;
+    public static final String CLIENT = "client";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +42,11 @@ public class ClientList extends AppCompatActivity {
 
         String res = getIntent().getStringExtra(Loader.RESPONSE);
         clientTabs = new ArrayList<ClientTab>();
+        clients = new ArrayList<Client>();
         try {
             if (res != null) {
-                ClientListJsonParser parser = new ClientListJsonParser(res);
-                createClientUIView(parser.getClients());
+                clients = new ClientListJsonParser(res).getClients();
+                createClientUIView(clients);
             }else {
                 ((LinearLayout)findViewById(R.id.noResult)).setVisibility(LinearLayout.VISIBLE);
             }
@@ -56,14 +62,6 @@ public class ClientList extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
@@ -92,6 +90,30 @@ public class ClientList extends AppCompatActivity {
     private void updateAva() throws ExecutionException, InterruptedException {
         for (ClientTab tab : clientTabs) {
             tab.updateAva();
+        }
+    }
+
+    public void openClientDetails(View view){
+        cancelAvaUpdate();
+
+//        Transporter trans=new Transporter(getClient(((TextView)view.findViewById(R.id.clientId)).getText().toString()));
+        Intent i = new Intent(ClientList.this, ClientDetails.class);
+//        i.putExtra(CLIENT, trans);
+        i.putExtra(CLIENT, getClient(((TextView)view.findViewById(R.id.clientId)).getText().toString()));
+        startActivity(i);
+        finish();
+    }
+    private Client getClient(String id){
+        for(Client c: clients){
+            if(c.getId().equals(id)){
+                return c;
+            }
+        }
+        return null;
+    }
+    private void cancelAvaUpdate(){
+        for(ClientTab tab: clientTabs){
+            tab.cancelAvaUpdate();
         }
     }
 }

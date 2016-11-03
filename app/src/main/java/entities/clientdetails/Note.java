@@ -1,10 +1,12 @@
 package entities.clientdetails;
 
+import java.io.Serializable;
+
 /**
  * Created by Rypon on 10/28/2016.
  */
 
-public class Note {
+public class Note implements Serializable {
     private String id;
     private String note;
     private String ownerID;
